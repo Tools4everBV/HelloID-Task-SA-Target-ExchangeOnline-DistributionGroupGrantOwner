@@ -2,7 +2,7 @@
 #################################################################
 # Form mapping
 $formObject = @{
-    Identity = $form.Name
+    Identity = $form.GroupIdentity
     ManagedBy  = @{
        Add = $form.Owners.Name
     }
@@ -11,7 +11,7 @@ $formObject = @{
 
 [bool]$IsConnected = $false
 try {
-    Write-Information "Executing ExchangeOnline action: [DistributionGroupGrantOwner] for: [$($formObject.Identity)]"
+    Write-Information "Executing ExchangeOnline action: [DistributionGroupGrantOwner] for: [$($formObject.GroupIdentity)]"
 
     $null = Import-Module ExchangeOnlineManagement
 
@@ -25,26 +25,26 @@ try {
     $auditLog = @{
         Action            = 'UpdateResource'
         System            = 'ExchangeOnline'
-        TargetIdentifier  = $formObject.Identity
-        TargetDisplayName = $formObject.Identity
-        Message           = "ExchangeOnline action: [DistributionGroupGrantOwner][$($formObject.ManagedBy.Add -join ', ')] to group [$($formObject.Identity)] executed successfully"
+        TargetIdentifier  = $formObject.GroupIdentity
+        TargetDisplayName = $formObject.GroupIdentity
+        Message           = "ExchangeOnline action: [DistributionGroupGrantOwner][$($formObject.ManagedBy.Add -join ', ')] to group [$($formObject.GroupIdentity)] executed successfully"
         IsError           = $false
     }
     Write-Information -Tags 'Audit' -MessageData $auditLog
-    Write-Information "ExchangeOnline action: [DistributionGroupGrantOwner][$($formObject.ManagedBy.Add -join ', ')]  to group [$($formObject.Identity)] executed successfully"
+    Write-Information "ExchangeOnline action: [DistributionGroupGrantOwner][$($formObject.ManagedBy.Add -join ', ')]  to group [$($formObject.GroupIdentity)] executed successfully"
 
 } catch {
     $ex = $_
     $auditLog = @{
         Action            = 'UpdateResource'
         System            = 'ExchangeOnline'
-        TargetIdentifier  = $formObject.Identity
-        TargetDisplayName = $formObject.Identity
-        Message           = "Could not execute ExchangeOnline action: [DistributionGroupGrantOwner] for: [$($formObject.Identity)], error: $($ex.Exception.Message)"
+        TargetIdentifier  = $formObject.GroupIdentity
+        TargetDisplayName = $formObject.GroupIdentity
+        Message           = "Could not execute ExchangeOnline action: [DistributionGroupGrantOwner] for: [$($formObject.GroupIdentity)], error: $($ex.Exception.Message)"
         IsError           = $true
     }
     Write-Information -Tags "Audit" -MessageData $auditLog
-    Write-Error "Could not execute ExchangeOnline action: [DistributionGroupGrantOwner] for: [$($formObject.Identity)], error: $($ex.Exception.Message)"
+    Write-Error "Could not execute ExchangeOnline action: [DistributionGroupGrantOwner] for: [$($formObject.GroupIdentity)], error: $($ex.Exception.Message)"
 } finally {
     if ($IsConnected) {
         $null = Disconnect-ExchangeOnline -Confirm:$false -Verbose:$false

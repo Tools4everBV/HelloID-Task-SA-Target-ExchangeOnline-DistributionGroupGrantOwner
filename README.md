@@ -17,7 +17,7 @@ This code snippet executes the following tasks:
 
 ```json
 {
-    "Name": "TestDistributionGroup",
+    "GroupIdentity": "TestDistributionGroup",
     "Owners": [
         {
             "name": "JaneD01"
@@ -33,7 +33,7 @@ This code snippet executes the following tasks:
 ```
 
 > :exclamation: It is important to note that the names of your form fields might differ. Ensure that the `$formObject` hashtable is appropriately adjusted to match your form fields.
-> The **Name** can hold different values [See the Microsoft Docs page](https://learn.microsoft.com/en-us/powershell/module/exchange/set-distributiongroup?view=exchange-ps#-managedby)
+> The **GroupIdentity** can hold different values [See the Microsoft Docs page](https://learn.microsoft.com/en-us/powershell/module/exchange/set-distributiongroup?view=exchange-ps#-managedby)
 
 2. Constructs a PowerShell credential object from the supplied administrative username and password
 
